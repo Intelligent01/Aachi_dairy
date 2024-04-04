@@ -14,9 +14,16 @@ class employee{
     }
 
 
-    public static function add_collection($name, $gender,?float $fat,?float $snf,?float $price,
-                                            ?float $qty,?float $amount,$date,$time,$shift ){
-
+    public static function add_collection(?int $id,?float $fat,?float $snf,?float $price,?float $qty,?float $amount,$shift ){
+        $conn=database::get_connection();
+        $query="INSERT INTO `collection` (`customer_id`, `fat`, `snf`, `price`, `qty`, `amount`, `date`, `time`, `shift`) values ('$id','$fat','$snf','$price','$qty','$amount',now(),now(),'$shift')";
+        $res=false;
+        try{
+            return $conn->query($query);
+        }catch(Exception $e){
+            echo "<script>".$e."</script>";
+            return $res;
+        }
     }
 
 }
